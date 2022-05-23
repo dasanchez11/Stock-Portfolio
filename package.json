@@ -57,6 +57,5 @@
     "@svgr/webpack": "^5.5.0",
     "react-app-rewired": "^2.2.1",
     "tailwindcss": "^3.0.24"
-  },
-  "proxy": "https://stocks-api-die.herokuapp.com/"
+  }
 }

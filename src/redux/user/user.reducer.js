@@ -3,12 +3,12 @@ import { isAuthenticatedCheck ,setUserInfo} from './user.utils';
 
 const INITIAL_STATE ={
     userInfo:setUserInfo(localStorage.getItem('userInfo')),
-    token: null,
+    token: localStorage.getItem('token'),
     expiresAt: localStorage.getItem('expiresAt'),
     name:localStorage.getItem('name'),
     isLoading:false,
     errors:undefined,
-    isAuthenticated:isAuthenticatedCheck([localStorage.getItem('expiresAt')])
+    isAuthenticated:isAuthenticatedCheck([localStorage.getItem('token'),localStorage.getItem('expiresAt')])
 }
 
 const userReducer = (state=INITIAL_STATE,action) =>{
@@ -28,7 +28,7 @@ const userReducer = (state=INITIAL_STATE,action) =>{
                 token: action.payload.token,
                 expiresAt: action.payload.expiresAt,
                 name:action.payload.name,
-                isAuthenticated:isAuthenticatedCheck([action.payload.expiresAt])
+                isAuthenticated:isAuthenticatedCheck([action.payload.token,action.payload.expiresAt])
             }
         case userActionTypes.SIGN_UP_SUCCESS:
             return{
