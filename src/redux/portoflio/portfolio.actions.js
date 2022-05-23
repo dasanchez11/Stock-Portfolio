@@ -72,7 +72,7 @@ export const removeStockPosition = (id) =>{
 
 export const removeStockPositionAsync = (id) => async (dispatch) =>{
     try {
-        const result = await removeStockFetch(id)
+        removeStockFetch(id)
         dispatch(removeStockPosition(id))
     } catch (error) {
         console.log(error.message)
@@ -90,7 +90,7 @@ export const editStock = (id,changeData) =>{
 
 export const editStockAsync = (id,changeData) => async (dispatch) =>{
     try {
-        const result = await editStockFetch(id,changeData)
+        await editStockFetch(id,changeData)
         dispatch(editStock(id,changeData))
     } catch (error) {
         console.log(error.message)

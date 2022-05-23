@@ -10,26 +10,26 @@ const SpecificStock = () => {
     const [interval,setInterval] = useState('1day')
     const [stockData,setStockData] = useState('')
 
-    const getCurrency = async () => {
-        try {
-          let dat=[]
-          let lab=[]
-          const response = await getStock(tickerName,interval)
-            response.data.data.forEach(item=>{   
-                dat.unshift(item.close)
-                lab.unshift(item.datetime)
-                   
-          })
-          setStockData({close:dat,labels:lab})
-          
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
       useEffect(() => {
+        const getCurrency = async () => {
+          try {
+            let dat=[]
+            let lab=[]
+            const response = await getStock(tickerName,interval)
+              response.data.data.forEach(item=>{   
+                  dat.unshift(item.close)
+                  lab.unshift(item.datetime)
+                     
+            })
+            setStockData({close:dat,labels:lab})
+            
+          } catch (err) {
+            console.error(err);
+          }
+          };
+
         getCurrency()
-      }, [tickerName,interval]);
+      }, [tickerName,interval,setStockData]);
 
       const handleClick= (e) =>{
           e.preventDefault()
