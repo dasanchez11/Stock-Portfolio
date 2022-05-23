@@ -1,6 +1,5 @@
 {
   "name": "stocks-portfolio",
-  "homepage": "https://dasanchez11.github.io/Stock-Portfolio",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -26,8 +25,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "eact-app-rewired test test",
