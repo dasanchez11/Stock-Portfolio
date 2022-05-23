@@ -1,6 +1,5 @@
 
-import axios from 'axios'
-import React, { useEffect } from 'react'
+import React from 'react'
 import Flag from 'react-world-flags'
 import { activateStockAdd } from '../../redux/mainContent/mainContent.actions'
 import Icon from '../Icon/icon'

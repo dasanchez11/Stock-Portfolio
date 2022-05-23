@@ -15,7 +15,7 @@ const SpecificStock = () => {
           let dat=[]
           let lab=[]
           const response = await getStock(tickerName,interval)
-            response.data.data.map(item=>{   
+            response.data.data.forEach(item=>{   
                 dat.unshift(item.close)
                 lab.unshift(item.datetime)
                    
