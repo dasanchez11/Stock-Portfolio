@@ -5,7 +5,7 @@ import store from '../redux/store'
 
 const accessToken = store.getState().user.token
 
-const BASE_URL = 'https://git.heroku.com/stocks-api-die.git'
+const BASE_URL = 'https://stocks-api-die.herokuapp.com/'
 
 export default axios.create({
     baseURL: BASE_URL
