@@ -1,14 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import {signInUserAsync} from '../../redux/user/user.actions'
 import { Navigate } from 'react-router-dom';
 import { AiFillEye,AiFillEyeInvisible } from 'react-icons/ai';
+import Spinner from '../spinner/Spinner.component'
+
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 const SignIn = () => {
     const isAuthenticated = useSelector(state=>state.user.isAuthenticated)
+    const loading = useSelector(state =>state.user.isLoading)
     const authErrors = useSelector(state =>state.user.errors)
     const [userInfoLogin,setUserInfoLogin] = useState({
         email:'',
@@ -25,6 +28,8 @@ const SignIn = () => {
     })
     
     const [isSubmit, setIsSubmit] = useState(false)
+    const okInfo = useRef(false)
+ 
 
     const [loginErrors,setLoginErrors] = useState({})
 
@@ -35,20 +40,23 @@ const SignIn = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         setLoginErrors(validate(userInfoLogin,loginValid))
-        if(isSubmit){
-            try {
-                await dispatch(signInUserAsync(userInfoLogin))   
-            } catch (error) {
-                
-            }        
-        }
+        setIsSubmit(true)
+        setTimeout(()=>{
+            if(okInfo.current){
+                dispatch(signInUserAsync(userInfoLogin))   
+            }
+        },1000)
+      
     }
+   
+
+    
 
 
 
     useEffect(() => {
-        if (Object.keys(loginErrors).length === 0) {
-            setIsSubmit(true)
+        if (Object.keys(loginErrors).length === 0 && isSubmit) {
+            okInfo.current = true
         }
       }, [loginErrors,isSubmit]);
 
@@ -132,7 +140,7 @@ const SignIn = () => {
                     </div>
                     </div>
                     <div className='flex items-center m-6'>
-                        <button className=' bg-green-600 px-3 py-2 rounded-lg m-auto text-2xl hover:bg-transparent border border-green-600'>{'Sign In'}</button>
+                        <button className=' bg-green-600 px-3 py-2 rounded-lg m-auto text-2xl hover:bg-transparent border border-green-600 flex flex-row items-center'>{loading? <Spinner/> : ''}{loading? 'Signing in' : 'Signin'}</button>
                     </div>
                     </div>
                 </form>

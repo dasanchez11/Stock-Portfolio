@@ -16,14 +16,12 @@ const Portfolio = () => {
     const [activeSearch,setActiveSearch] = useState('')
     
     const data = useSelector(state =>state.portfolio.data)
-    // const data = []
     const displayData = uniqueArrayElements(data)
 
     const dispatch = useDispatch()
 
     useEffect(()=>{
         dispatch(fetchPortfolioAsync())
-        // dispatch(fetchPortfolioSuccess(dummy2))
 
     },[dispatch])
 

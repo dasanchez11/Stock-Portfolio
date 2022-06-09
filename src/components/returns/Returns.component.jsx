@@ -43,7 +43,7 @@ const Returns = () => {
             
           </tbody>
         </table>
-        <table class="w-[90%] table-fixed font-thin border-t border-b border-green-500 text-left m-3">
+        <table className="w-[90%] table-fixed font-thin border-t border-b border-green-500 text-left m-3">
           <thead>
               <tr className='text-sm font-bold'>
                 <td className=' md:hidden hidden'>Name</td>

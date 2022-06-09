@@ -17,24 +17,23 @@ const userReducer = (state=INITIAL_STATE,action) =>{
         case userActionTypes.SIGN_UP_START:
             return{
                 ...state,
-                isLoading:true,
-                errors:''
+                isLoading:true
             }
         case userActionTypes.SIGN_IN_SUCCESS:
             return{
                 ...state,
+                isAuthenticated:isAuthenticatedCheck([action.payload.token,action.payload.expiresAt]),
                 isLoading:false,
                 userInfo:action.payload.userInfo,
                 token: action.payload.token,
                 expiresAt: action.payload.expiresAt,
-                name:action.payload.name,
-                isAuthenticated:isAuthenticatedCheck([action.payload.token,action.payload.expiresAt])
+                name:action.payload.name
             }
         case userActionTypes.SIGN_UP_SUCCESS:
             return{
                 ...state,
                 isLoading:false,
-                errors:undefined
+                errors:''
             }
         case userActionTypes.SIGN_IN_FAILURE:
         case userActionTypes.SIGN_UP_FAILURE:

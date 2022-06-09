@@ -1,9 +1,9 @@
-import React, {useState,useEffect} from 'react'
+import React, {useState,useEffect,useRef} from 'react'
 import { useDispatch ,useSelector} from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { signUpUserAsync } from '../../redux/user/user.actions';
 import { AiFillEye,AiFillEyeInvisible } from 'react-icons/ai';
-
+import Spinner from '../spinner/Spinner.component'
 
 
 
@@ -17,13 +17,14 @@ const SignUp = () => {
     const authErrors = useSelector(state =>state.user.errors)
     const [visiblePwd, setVisiblePwd] = useState(false)
     const [register,setRegister] = useState(false)
+    const loading = useSelector(state =>state.user.isLoading)
   
 
     useEffect(()=>{
-        if(authErrors===''){
+        if(authErrors===''&& loading ===false){
             setRegister(true)
         }
-    },[authErrors])
+    },[authErrors,loading])
 
     const [userInfoLogin,setUserInfoLogin] = useState({
         email:'',
@@ -41,7 +42,7 @@ const SignUp = () => {
         phone:false
     })
     const [isSubmit, setIsSubmit] = useState(false)
-
+    const okInfo = useRef(false)
     const [loginErrors,setLoginErrors] = useState({})
 
     
@@ -54,14 +55,17 @@ const SignUp = () => {
     const handleSubmit = async (e) =>{
         e.preventDefault()
         setLoginErrors(validate(userInfoLogin,loginValid))
-        if(isSubmit){
-                await dispatch(signUpUserAsync(userInfoLogin))
-        }
+        setIsSubmit(true)
+        setTimeout(()=>{
+            if(okInfo.current){
+                dispatch(signUpUserAsync(userInfoLogin))   
+            }
+        },1000)
     }
 
     useEffect(() => {
-        if (Object.keys(loginErrors).length === 0) {
-            setIsSubmit(true)
+        if (Object.keys(loginErrors).length === 0 && isSubmit) {
+          okInfo.current = true
         }
       }, [loginErrors,isSubmit]);
 
@@ -210,7 +214,7 @@ const SignUp = () => {
                 </div>
             </div>
             <div className='flex items-center m-6'>
-                <button className=' bg-green-600 px-3 py-2 rounded-lg m-auto text-2xl hover:bg-transparent border border-green-600'>{'Register'}</button>
+                <button className=' bg-green-600 px-3 py-2 rounded-lg m-auto text-2xl hover:bg-transparent border border-green-600 flex flex-row'>{loading? <Spinner/> : ''}{loading? 'Registering' : 'Register'}</button>
             </div>
             </div>
         </form>
