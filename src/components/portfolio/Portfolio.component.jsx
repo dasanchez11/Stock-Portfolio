@@ -8,17 +8,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchPortfolioAsync } from '../../redux/portoflio/portfolio.actions';
 import { uniqueArrayElements } from '../utils/functions';
 import { v4 as uuidv4 } from 'uuid';
-
+import { useAppDispatch,useAppSelector } from '../../hooks/hooks';
 
 
 const Portfolio = () => {
     const [search,setSearch] = useState(false)
     const [activeSearch,setActiveSearch] = useState('')
     
-    const data = useSelector(state =>state.portfolio.data)
+    const data = useAppSelector(state =>state.portfolio.data)
     const displayData = uniqueArrayElements(data)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     useEffect(()=>{
         dispatch(fetchPortfolioAsync())
@@ -27,7 +27,7 @@ const Portfolio = () => {
 
  
   
-    const handleChange = (e) =>{
+    const handleChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
         setActiveSearch(e.target.value)
     }
 

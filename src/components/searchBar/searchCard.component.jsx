@@ -3,18 +3,19 @@ import React from 'react'
 import Flag from 'react-world-flags'
 import { activateStockAdd } from '../../redux/mainContent/mainContent.actions'
 import Icon from '../Icon/icon'
-import {useDispatch} from 'react-redux'
 import { toggleAddToPortfolio } from '../../redux/portoflio/portfolio.actions'
+import { useAppDispatch } from '../../hooks/hooks';
 
 
 
 const SearchCard = ({data,setValue,setClose}) => {
+    
     const {name,name_alpha,symbol,type} = data
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+
+
     const handleClick =(e) =>{
-       const addData = {name:name,
-                        info:{symbol,type,name_alpha}
-                        }
+       const addData = {name:name, info:{symbol,type,name_alpha}}
        dispatch(activateStockAdd((addData)))
        setValue('')
        setClose(false)

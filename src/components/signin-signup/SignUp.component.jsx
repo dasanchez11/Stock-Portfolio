@@ -86,31 +86,31 @@ const SignUp = () => {
     
 
     const validate = (infoLogin,loginValid) =>{
-        const loginErrors = {};
+        const errors = {};
         if(!infoLogin.email){
-            loginErrors.email = 'Email is required'
+            errors.email = 'Email is required'
         }else if (!loginValid.email){
-            loginErrors.email = 'Email is invalid'
+            errors.email = 'Email is invalid'
         }
         if(!infoLogin.password){
-            loginErrors.password = 'Password is required'
+            errors.password = 'Password is required'
         }else if (!loginValid.password){
-            loginErrors.password = 'Password is invalid'
+            errors.password = 'Password is invalid'
         }
         if(!infoLogin.firstName){
-            loginErrors.firstName = 'First Name is required'
+            errors.firstName = 'First Name is required'
             setLoginValid(state => ({...state,'firstName':false}))
         }
         if(!infoLogin.lastName){
-            loginErrors.lastName = 'Last Name is required'
+            errors.lastName = 'Last Name is required'
             setLoginValid(state => ({...state,'lastName':false}))
         }
         if(!infoLogin.phone){
-            loginErrors.phone = 'Phone is required'
+            errors.phone = 'Phone is required'
         }else if (!loginValid.phone){
-            loginErrors.phone = 'Phone is invalid'
+            errors.phone = 'Phone is invalid'
         }
-       return loginErrors
+       return errors
     }
 
   return (
@@ -119,8 +119,8 @@ const SignUp = () => {
     <section className='relative bg-neutral-900 w-full h-screen text-white pt-[80px] flex justify-center'>
     <div className='h-auto w-[80vw] md:w-[60vw] lg:w-[40vw] bg-neutral-800 p-6 shadow-md shadow-neutral-800 rounded-lg m-auto'>
         <form  autoComplete='off' onSubmit={handleSubmit} >
-            {authErrors !== undefined && authErrors !== '' ? 
-                        <p className='bg-red-300 border border-red-500 text-red-500 p-3 rounded-md text-center'>{authErrors}</p>
+            {authErrors && authErrors !== '' ? 
+                        <p className='bg-red-300 border border-red-500 text-red-500 p-3 rounded-md text-center'>{authErrors.response.data.message}</p>
                     : ''}
             <h1 className='text-white text-center text-3xl font-bold my-2 top-0 p-3 border-b border-b-green-600'>{'Register'}</h1>
             <div className="ui divider"></div>
