@@ -8,7 +8,7 @@ const accessToken = store.getState().user.token
 
 
 
-const BASE_URL = 'https://stocks-api-die.herokuapp.com'
+const BASE_URL = 'https://web-production-fbc4.up.railway.app'
 // const BASE_URL = 'http://localhost:3001'
 
 export default axios.create({
